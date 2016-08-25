@@ -4,6 +4,7 @@ import config
 import processData as pd
 from pyquery import PyQuery as pq
 import sys
+import writeExcel
 
 async def fetchData(callback = pd.processData, params=None):
     #set request url and parameters here or you can pass from outside. 
@@ -27,7 +28,8 @@ async def fetchData(callback = pd.processData, params=None):
         print('lastpage parse error, process will terminal.')
         exit(-1)
     # print(lastpage)
-    await callback(lastpage, s)
+    data = await callback(lastpage, s)
+    writeExcel.writedb(data)
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()    
