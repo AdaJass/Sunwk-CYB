@@ -30,6 +30,7 @@ async def fetchData(callback = pd.processData, params=None):
     # print(lastpage)
     data = await callback(lastpage, s)
     writeExcel.writedb(data)
+    writeExcel.writeCsv(data)
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()    

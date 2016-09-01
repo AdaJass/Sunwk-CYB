@@ -114,9 +114,34 @@ def formhead(formindex):
     return formtitle
 
 
+def writeCsv(db):    
+    with open('sunwk-cyb.csv', 'w', encoding='utf-8') as f:        
+        for col_num in range(1,20+1):              #补写表头            
+            f.write(formhead(col_num))
+            if col_num != 20:
+                f.write(',')
+        f.write('\n')
+        if len(db)>1000:
+            csv_rows=1000
+        else:
+            csv_rows=len(db)
+
+        for row_num in range(1,csv_rows+1):      #表示遍历行数(最后一个数字循环不到)            
+            for col_num in range(1,20+1):        #表示遍历列数
+                if not db[row_num-1][col_num-1]:
+                    if col_num != 20:
+                        f.write(',')                  
+                else:
+                    f.write(str(db[row_num-1][col_num-1]))
+                    if col_num != 20:
+                        f.write(',')
+            f.write('\n')
+
+
 if __name__ == '__main__':
     data=[]
     cell=[1,2,3,4,0,0,0,'seikjkgd',0,0,0,0,0,0,0,0,0,0,0,0]
     data.append(cell)
     data.append(cell)
     writedb(data)
+    writeCsv(data)
